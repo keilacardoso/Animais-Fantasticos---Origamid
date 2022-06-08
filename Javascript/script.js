@@ -43,5 +43,48 @@ function initAccordionFaq(){
 }
 initAccordionFaq();
 
+function initScroll(){
+    const linksInternos = document.querySelectorAll('.js-menu a[href^= "#"]');
 
+    linksInternos.forEach((link) =>{
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const href = event.currentTarget.getAttribute('href');
+            const section = document.querySelector(href);
+
+            section.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+
+        });
+    });
+
+}
+
+initScroll();
+
+function initAnimationScroll(){
+    const sections = document.querySelectorAll('.js-scroll');
+    const windowMetade = window.innerHeight * 0.6;
+
+    if(sections.length){
+        function animaScroll(){
+            sections.forEach((section) => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const isSectionVisible = (sectionTop - windowMetade) < 0;
+                
+                if(isSectionVisible) {
+                    section.classList.add('ativo');
+                }
+            });
+        }   
+
+        animaScroll();
+    
+        window.addEventListener('scroll', animaScroll);
+    }
+}
+
+initAnimationScroll();
 
